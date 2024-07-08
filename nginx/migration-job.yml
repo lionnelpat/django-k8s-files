@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+    name: django-db-migrations
+    namespace: django-on-k8s
+spec:
+  ttlSecondsAfterFinished: 100
+  activeDeadlineSeconds: 60
+  backoffLimit: 15
+  template:
+    spec:
+      containers:
+        - name: migration-container
+          image: lionnelpat/django-on-docker:dev
+          command: ["python", "manage.py", "migrate"]
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: web-app
+          ports:
+            - containerPort: 8000
+      restartPolicy: OnFailure

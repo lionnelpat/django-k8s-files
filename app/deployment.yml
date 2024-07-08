@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: django-app-deploy
+    namespace: django-on-k8s
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: django-application
+    template:
+        metadata:
+            labels:
+                app: django-application
+        spec:
+            containers:
+                - name: django-on-docker
+                  image: lionnelpat/django-on-docker:dev
+                  imagePullPolicy: Always
+                  ports:
+                    - containerPort: 8000
+                  envFrom:
+                    - configMapRef:
+                        name: web-app
+                  volumeMounts:
+                    - mountPath: "/data/static"
+                      name: staticfiles
+            volumes:
+                - name: staticfiles
+                  persistentVolumeClaim:
+                    claimName: staticfiles-pvc

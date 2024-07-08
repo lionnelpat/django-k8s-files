@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-staticfiles
+  namespace: django-on-k8s
+spec:
+    ttlSecondsAfterFinished: 100
+    activeDeadlineSeconds: 60
+    backoffLimit: 3
+    template:
+      spec:
+        volumes:
+          - name: staticfiles
+            persistentVolumeClaim:
+              claimName: staticfiles-pvc
+        containers:
+          - name: staticfiles-container
+            image: lionnelpat/django-on-docker:dev
+            command: ["python", "manage.py", "collectstatic", "--noinput"]
+            imagePullPolicy: Always
+            envFrom:
+              - configMapRef:
+                  name: web-app
+            ports:
+              - containerPort: 8000
+            volumeMounts:
+              - mountPath: "/data/static"
+                name: staticfiles
+        restartPolicy: OnFailure
