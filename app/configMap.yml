@@ -5,8 +5,8 @@ metadata:
     namespace: django-on-k8s
 data:
     DB_HOST: "postgres-svc"
-    DB_USERNAME: "django-password"
-    DB_PASSWORD: "django-db"
+    DB_USERNAME: "django-user"
+    DB_PASSWORD: "django-password"
     DB_PORT: "5432"
-    DB_NAME: "django"
+    DB_NAME: "django-db"
     STATIC_ROOT: "/data/static"

@@ -6,6 +6,6 @@ metadata:
     labels:
         app: postgres
 data:
-    POSTGRES_USER: django-user
-    POSTGRES_PASSWORD: django-password
-    POSTGRES_DB: django-db
+    POSTGRES_USER: "django-user"
+    POSTGRES_PASSWORD: "django-password"
+    POSTGRES_DB: "django-db"
