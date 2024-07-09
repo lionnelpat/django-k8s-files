@@ -15,7 +15,7 @@ spec:
               claimName: staticfiles-pvc
         containers:
           - name: staticfiles-container
-            image: lionnelpat/django-on-docker:dev
+            image: lionnelpat/django-on-docker
             command: ["python", "manage.py", "collectstatic", "--noinput"]
             imagePullPolicy: Always
             envFrom:

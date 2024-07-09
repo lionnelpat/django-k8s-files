@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: migration-container
-          image: lionnelpat/django-on-docker:dev
+          image: lionnelpat/django-on-docker
           command: ["python", "manage.py", "migrate"]
           imagePullPolicy: Always
           envFrom:
